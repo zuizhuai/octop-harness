@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 压缩摘要只发送更短的历史；仍然放不下时才用占位内容。
 - 只有文件名的 glob 必须带路径。
 - LLM HTTP 调用带有显式超时，上游挂起不会一直卡住本轮。
+- Gemini 工具调用的思考签名（thought signature）在 OpenAI 兼容响应、流式输出和历史回放中都被保留（TencentCloud/Octop#2499）。
 
 ### 变更
 
