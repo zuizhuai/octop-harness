@@ -7,21 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
+## [1.0.6] - 2026-11-01
 
-- Pin replies and visible thinking to the configured language, after workspace memory.
+### 新增
 
-### Fixed
+- 回复和可见思考固定使用配置的语言，并排在工作区记忆之后。
 
-- Execute core tools such as `read_file` when the model routes them through `call_deferred_tool`, instead of reporting that the tool is missing. Disabled tools stay unavailable.
-- Retry memory model calls once without an explicit temperature when the provider rejects it, including auxiliary-model fallbacks, while preserving request options and bounded transport retries (TencentCloud/Octop#835).
-- Cap history sent to the summary model. Use a placeholder only when the smaller window still overflows the context window.
-- Basename globs (`*`, `*.md`, and similar) require an explicit path. A relative path searches the workspace; `/` searches from the backend root.
-- LLM HTTP calls pass an explicit timeout to the provider SDK (OpenAI/Anthropic/Bedrock; OpenAI shape 600s request / 5s connect), including the `session_header` path, so a hung upstream cannot stall a turn forever.
+### 修复
+
+- 经 `call_deferred_tool` 调用的可用核心工具会直接执行；已禁用的工具仍然不可用。
+- 记忆模型因 temperature 被拒绝时，省略 temperature 再试一次（TencentCloud/Octop#835）。
+- 压缩摘要只发送更短的历史；仍然放不下时才用占位内容。
+- 只有文件名的 glob 必须带路径。
+- LLM HTTP 调用带有显式超时，上游挂起不会一直卡住本轮。
 
 ### 变更
 
-- `HttpDecisionClient` 在非 strict 模式下，传输或 HTTP 失败重试后抛出 `DecisionRequestError`，不再返回空结果。成功但解析不出概率时仍返回空 map。
+- `HttpDecisionClient` 在非 strict 模式下，传输或 HTTP 失败重试后抛出 `DecisionRequestError`，不再返回空结果。
 
 ## [1.0.5] - 2026-10-24
 
